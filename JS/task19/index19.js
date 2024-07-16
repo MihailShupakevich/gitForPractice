@@ -1,12 +1,8 @@
 // 19
 
-const { syncBuiltinESMExports } = require("module");
-
 // Реализовать алгоритм сжатия строки "AAADDDGFFFAAR" → "3A3DG3F2AR"
-
-
 let count = 1;
-let otherNumber;
+
 let sum= '';
 let getNumber = (stroka) => {
 
