@@ -15,3 +15,4 @@ const reverseFunc = (arr1) => {
   else return newArr;
   }
 reverseFunc(arr)
+

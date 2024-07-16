@@ -9,3 +9,4 @@ const { curry } = require("lodash");
 
 const notCurrySum = (a,b) => a + b ;
 let sum = curry(notCurrySum);
+

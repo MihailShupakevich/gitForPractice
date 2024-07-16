@@ -35,7 +35,26 @@ const tree = {
   },
 };
 
-sum(tree, 'value') // --> 21
+
+let sum = (tree, key) => {
+  let result = 0;
+  const traverse = (node) => {
+    if (typeof node === 'object' && node !== null) {
+      if (node.hasOwnProperty(key)) {
+        result += node[key];
+      }
+      if (Array.isArray(node)) {
+        node.forEach(traverse);
+      } else {
+        Object.values(node).forEach(traverse);
+      }
+    }
+  };
+  traverse(tree);
+  return result;
+};
+
+console.log(sum(tree, "value2")); 
 
 // Напишите функцию которая принимает объект и название ключа, 
 // и рекурсивно просчитывает все значения по ключу в объекте 

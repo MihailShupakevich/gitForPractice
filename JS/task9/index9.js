@@ -8,12 +8,10 @@
 
 
 let count = 1;
-let otherNumber;
 let sum= '';
 let getNumberCharacters = (stroka) => {
 
   for(let i = 0; i<=stroka.length-1; i++){
-    console.log(stroka[i], stroka[i+1]);
     if(stroka[i]=== stroka[i+1]){ 
           count +=1;
                                 } 
@@ -21,7 +19,8 @@ let getNumberCharacters = (stroka) => {
           count =1;
         }
     }
+    return sum
 }
 
-getNumberCharacters('helllo')
-console.log(sum);
+console.log(getNumberCharacters('helllo'));
+

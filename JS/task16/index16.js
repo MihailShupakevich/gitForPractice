@@ -12,8 +12,21 @@
 // очищенный от анаграмм.
 
 // Например
-let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
-alert( aclean(arr) ); // "nap,teachers,ear" или "PAN,cheaters,era"
+ let arr = ["nap", "teachers", "cheaters", "PAN", "ear", "era", "hectares"];
+
+let aclean = (arr1) => {
+  let sortedArr = arr1.map((el) => [...el].sort().join('').toLowerCase());
+  return [...new Set(sortedArr)].map((sortedStr) => {
+  return arr1.find((el) => [...el].sort().join('') === sortedStr);
+  });
+};
+
+
+console.log(( aclean(arr) )); // "nap,teachers,ear" или "PAN,cheaters,era"
+
+
+
+
 
 // Из каждой группы анаграмм должно остаться только одно слово,
 // не важно какое.
