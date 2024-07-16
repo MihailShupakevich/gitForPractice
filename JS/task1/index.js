@@ -6,23 +6,35 @@
 // это сделать это в JS?
 
 const endPoints = [
-  // 'https://jsonplaceholder.typicode.com/users?name=Leanne%20Graham',
-  // 'https://jsonplaceholder.typicode.com/todos?user=*V2',
-  // 'https://jsonplaceholder.typicode.com/todos/*V3'
-  ]
+  'https://jsonplaceholder.typicode.com/users?name=Leanne%20Graham',
+  'https://jsonplaceholder.typicode.com/todos?user=',
+  'https://jsonplaceholder.typicode.com/todos/v3'
+]
   
   // *V2 - тут id пользователя полученного в прошлом запросе.
   // *V3 - тут id последней таски, полученной во втором запросе
 
   let newEndPoints = (endPoints1) => {
+    let resultData;
       for (let i = 0; i < endPoints1.length; i++) {
         if(i == 0){
-          let firstEndPoint = fetch(endPoints1[i]).then((value)=>value.json()).catch(()=>  new Error('Недостежимый url!'))
-          return firstEndPoint;
+          const firstEndPoint = fetch(endPoints1[i])
+          .then((value)=>value.json())
+          .then(data=>{
+                if(Array.isArray(data)){
+                return resultData = data[0].id }
+                  else {throw new Error('полученные данные не являются массивом!')}})
+          .catch(()=>  new Error('Недостежимый url!'))
         }
-        else if((firstEndPoint !== false) && (i == 1)){
-          let secondEndPoint = fetch(endPoints1[i]).then((value)=>value.id.json()).catch(()=>  new Error('Недостежимый url!'))
-          return secondEndPoint;
+
+        else if((resultData !== undefined ) && (i == 1)){
+          const  secondEndPoint = fetch(endPoints1[i] + String(resultData))
+          .then((value)=>value.json())
+          .then(data => {
+            
+          })
+          .catch(()=>  new Error('Недостежимый url!'))
+          return secondEndPoint;  
         }
         else if((secondEndPoint !== false) && (i == 2)){
           let thirdEndPoint = fetch(endPoints1[i]).then((value)=>value.json()).catch(()=>  new Error('Недостежимый url!'))
