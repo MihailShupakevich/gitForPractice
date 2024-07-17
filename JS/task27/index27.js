@@ -64,6 +64,7 @@ function promiseAllSettled(promises2) {
     });
   });
 }
+ 
 
 promiseAll(promises).then((results) => console.log(results));
 promiseAllSettled(promises2).then((results)=>console.log(results)).catch((err)=> console.log(err));
