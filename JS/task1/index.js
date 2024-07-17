@@ -8,39 +8,37 @@
 const endPoints = [
   'https://jsonplaceholder.typicode.com/users?name=Leanne%20Graham',
   'https://jsonplaceholder.typicode.com/todos?user=',
-  'https://jsonplaceholder.typicode.com/todos/v3'
+  'https://jsonplaceholder.typicode.com/todos/'
 ]
   
   // *V2 - тут id пользователя полученного в прошлом запросе.
   // *V3 - тут id последней таски, полученной во втором запросе
 
-  let newEndPoints = (endPoints1) => {
-    let resultData;
-      for (let i = 0; i < endPoints1.length; i++) {
-        if(i == 0){
-          const firstEndPoint = fetch(endPoints1[i])
-          .then((value)=>value.json())
-          .then(data=>{
-                if(Array.isArray(data)){
-                return resultData = data[0].id }
-                  else {throw new Error('полученные данные не являются массивом!')}})
-          .catch(()=>  new Error('Недостежимый url!'))
+  
+const newEndPoints = async (endPoints1) => {
+  let resultData = '';
+  for (let i = 0; i < endPoints1.length; i++) {
+    if (i > 0) {
+      endPoints1[i] += resultData;
+    }
+    const responce = await fetch(endPoints1[i])
+      .then((responce) => {
+        if (responce.ok) {
+          return responce.json();
         }
+      })
+      .then((data) => {
+        if (Array.isArray(data)) {
+          resultData = data[0].id;
+          return data[0];
+        } else {
+          return data;
+        }
+      })
+      .catch((err) => new Error(`Error occured! ${err}`));
 
-        else if((resultData !== undefined ) && (i == 1)){
-          const  secondEndPoint = fetch(endPoints1[i] + String(resultData))
-          .then((value)=>value.json())
-          .then(data => {
-            
-          })
-          .catch(()=>  new Error('Недостежимый url!'))
-          return secondEndPoint;  
-        }
-        else if((secondEndPoint !== false) && (i == 2)){
-          let thirdEndPoint = fetch(endPoints1[i]).then((value)=>value.json()).catch(()=>  new Error('Недостежимый url!'))
-          return thirdEndPoint;
-        }
-      }
+    console.log(responce);
   }
+}
 
-  console.log(newEndPoints(endPoints));
+newEndPoints(endPoints);

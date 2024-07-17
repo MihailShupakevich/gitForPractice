@@ -4,8 +4,6 @@
 
 
 const debounce = (callback, interval = 0) => {
-  let prevTimeoutId;
-
   return (...args) => {
     prevTimeoutId = setTimeout(() => {
       callback(args);
@@ -13,4 +11,5 @@ const debounce = (callback, interval = 0) => {
   }
 }
 
-debounce(()=> {1,2,3}, 1000)
+const debouncedFunc = debounce(() => console.log('Hello!'), 1000);
+debouncedFunc();
